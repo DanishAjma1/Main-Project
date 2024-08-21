@@ -1,9 +1,14 @@
-<h1><%=@book.title%></h1>
-<h4><%=@book.author_name%></h4>
-<p><%=@book.description%></p>
+<h1><%= @book.title %></h1>
+<h4><%= @book.author_name %></h4>
+<p><%= @book.description %></p>
 
-<%= link_to "Update it", edit_book_path(@book)%>
+<%= link_to "Update it", edit_book_path(@book) %>
 <h5><%= link_to "Destroy", book_path(@book), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></h5>
+                                               turbo_method: :delete,
+                                               turbo_confirm: "Are you sure?",
+                                             } %></h5>
+
+<h2>Reviews<h2>
+<%= render @book.reviews %>
+<h2>Add a Review:</h2>
+<%= render "reviews/form", book: @book %>
