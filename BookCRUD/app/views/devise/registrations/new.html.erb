@@ -21,6 +21,11 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <div class="field">
+    <%= f.label :role %><br />
+    <%# <%= f.select :role, options_for_select(["admin", "user"]) %>
+    <%= f.select :role, options_for_select(User.roles.keys.map { |role| [role.humanize, role] }) %>
+  </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

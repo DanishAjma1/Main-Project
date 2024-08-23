@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
       @book = Book.find(params[:book_id])
       @review = Review.find(params[:id])
     end
-    
+
     def update
       @book = Book.find(params[:book_id])
       @review = Review.find(params[:id])
