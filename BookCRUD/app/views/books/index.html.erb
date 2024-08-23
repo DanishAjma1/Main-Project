@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <h1>Books List</h1>
 <table>
     <tr>
@@ -14,3 +15,4 @@
       <% end %>
 </table>
 <p><%= link_to "New Book", new_book_path %></p>
+<% end %>

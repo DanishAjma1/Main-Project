@@ -1,17 +1,4 @@
 class BooksController < ApplicationController
-  # Authenticate user before certain actions
-  
-  protect_from_forgery with: :exception, prepend: true
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-
-  allow_browser versions: :modern
-  def after_sign_in_path_for(resource)
-    root_path # Redirect to the dashboard after sign-in
-  end
-
-  def after_sign_out_path_for(resource_or_scope)
-    root_path # Redirect to the homepage after sign-out
-  end
   def index
     @books = Book.all
   end
@@ -26,10 +13,8 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    # @book.user = current_user  # Associate the book with the signed-in user
-
     if @book.save
-      redirect_to @book, notice: 'Book was successfully created.'
+      redirect_to @book, notice: "Book was successfully created."
     else
       render :new
     end
@@ -42,7 +27,7 @@ class BooksController < ApplicationController
   def update
     @book = Book.find(params[:id])
     if @book.update(book_params)
-      redirect_to @book, notice: 'Book was successfully updated.'
+      redirect_to @book, notice: "Book was successfully updated."
     else
       render :edit
     end
@@ -51,7 +36,7 @@ class BooksController < ApplicationController
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
-    redirect_to books_url, notice: 'Book was successfully destroyed.'
+    redirect_to books_url, notice: "Book was successfully destroyed."
   end
 
   private
