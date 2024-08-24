@@ -1,4 +1,8 @@
 class BooksController < ApplicationController
+  # http_basic_authenticate_with name: "dani", password: "secret", except: [ :index, :show ]
+
+  before_action :authenticate_user!
+  before_action :require_admin, only: [ :destroy ]
   def index
     @books = Book.all
   end
@@ -40,6 +44,13 @@ class BooksController < ApplicationController
   end
 
   private
+
+  def require_admin
+    unless current_user.admin?
+      flash[:alert] = "Only admins can perform that action."
+      redirect_to books_path
+    end
+  end
 
   def book_params
     params.require(:book).permit(:title, :author_name, :description)

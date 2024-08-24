@@ -27,6 +27,9 @@
     }
 </style>
   <body>
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type %>"><%= message %></div>
+    <% end %>
     <%= yield %>
     <%= button_to "Logout", destroy_user_session_path, method: :delete %>
   </body>
