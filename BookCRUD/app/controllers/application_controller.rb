@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  # rubocop:disable Layout/EmptyLinesAroundClassBody
-  protect_from_forgery with: :exception, prepend: true
+  # protect_from_forgery with: :exception, prepend: true
   before_action :authenticate_user!
 
   allow_browser versions: :modern
