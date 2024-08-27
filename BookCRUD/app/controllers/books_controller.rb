@@ -1,9 +1,11 @@
 class BooksController < ApplicationController
   # http_basic_authenticate_with name: "dani", password: "secret", except: [ :index, :show ]
 
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   # before_action :require_admin, only: [ :destroy ]
   # load_and_authorize_resource
+  # before_action :find_book, only: [ :show, :edit, :update, :destroy ]
+
   def index
     @books = Book.all
   end
@@ -17,7 +19,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(book_params)
+    @book = current_user.books.build(book_params)  # Associates the book with the current user
     if @book.save
       redirect_to @book, notice: "Book was successfully created."
     else
@@ -30,8 +32,8 @@ class BooksController < ApplicationController
   end
 
   def update
-    if can?(:update, @book)
     @book = Book.find(params[:id])
+    if can?(:update, @book)
     if @book.update(book_params)
       redirect_to @book, notice: "Book was successfully updated."
     else
@@ -43,8 +45,8 @@ class BooksController < ApplicationController
   end
 
   def destroy
-    if can?(:destroy, @book)
     @book = Book.find(params[:id])
+    if can?(:destroy, @book)
     @book.destroy
     redirect_to books_url, notice: "Book was successfully destroyed."
     else

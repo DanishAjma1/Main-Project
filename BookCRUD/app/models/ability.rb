@@ -10,7 +10,9 @@ class Ability
     else
       can :read, :all
       can :create, Book
+      can :create, Review
       can [ :update, :destroy ], Book, user_id: user.id
+      can [ :update, :destroy ], Review, user_id: user.id
     end
   end
 end
