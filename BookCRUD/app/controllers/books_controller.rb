@@ -1,13 +1,17 @@
 class BooksController < ApplicationController
   # http_basic_authenticate_with name: "dani", password: "secret", except: [ :index, :show ]
-
   before_action :authenticate_user!
   # before_action :require_admin, only: [ :destroy ]
   # load_and_authorize_resource
   # before_action :find_book, only: [ :show, :edit, :update, :destroy ]
 
+  include Pagy::Backend
   def index
-    @books = Book.all
+    if params[:query].present?
+      @pagy, @books = pagy(Book.search_books(params[:query]))
+    else
+      @pagy, @books = pagy(Book.all)
+    end
   end
 
   def show
