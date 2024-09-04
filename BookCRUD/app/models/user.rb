@@ -7,4 +7,9 @@ class User < ApplicationRecord
   enum role: { admin: "admin", user: "user" }
   has_many :books
   has_many :reviews
+  def send_reset_password_instructions
+    token = set_reset_password_token
+    PasswordResetMailerJob.perform_later(self, token)
+    token
+  end
 end

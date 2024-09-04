@@ -14,8 +14,23 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.action_mailer.logger = ActiveSupport::Logger.new(STDOUT)
   # Enable server timing.
   config.server_timing = true
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  address:              'smtp.gmail.com',
+  port:                 587,
+  domain:               'example.com',
+  user_name:            'danishajmalbutt@gmail.com',
+  password:             "lfrm fnfy gnay zexf",
+  authentication:       'plain',
+  open_timeout: 5,
+  read_timeout: 5,
+  enable_starttls_auto: true 
+}
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -42,8 +57,6 @@ Rails.application.configure do
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
-
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
