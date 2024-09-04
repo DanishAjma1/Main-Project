@@ -1,0 +1,13 @@
+<%= form_with model: [book, book.reviews.build] do |form| %>
+  <p>
+    <%= form.label :User %><br>
+    <%= form.text_field :reviewer %>
+  </p>
+  <p>
+    <%= form.label :Review %><br>
+    <%= form.text_area :msg %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

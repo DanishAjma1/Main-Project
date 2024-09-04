@@ -1,0 +1,18 @@
+<h2>Edit Review</h2>
+<%= form_with model: [@book, @review] do |form| %>
+  <p>
+    <%= form.label :reviewer %><br>
+    <%= form.text_field :reviewer %>
+  </p>
+
+  <p>
+    <%= form.label :msg, "Message" %><br>
+    <%= form.text_area :msg %>
+  </p>
+
+  <p>
+    <%= form.submit "Update Review" %>
+  </p>
+<% end %>
+
+<%= link_to "Back", book_path(@book) %>
