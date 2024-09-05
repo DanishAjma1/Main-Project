@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   def create
     @book = current_user.books.build(book_params)  # Associates the book with the current user
     if @book.save
-      UserMailer.reset_password_instructions.deliver_now
+      # UserMailer.reset_password_instructions.deliver_now
       redirect_to @book, notice: "Book was successfully created."
     else
       render :new
